@@ -109,6 +109,7 @@ BenDict::mapped_type& BenDict::operator[](const key_type& key)
 	return value_[key];
 }
 
+
 void BenInt::accept(PrintPretty* pVisitor)
 {
 	pVisitor->visit(this);

@@ -33,6 +33,7 @@ public:
     const_iterator cbegin() const;
     const_iterator cend() const;
     virtual void accept(PrintPretty*) override;
+    
 
 private:
     ValueType BenList_;
@@ -47,7 +48,6 @@ public:
     ~BenString() {}
     BenString(ValueType&);
     virtual void accept(PrintPretty*) override;
-
 
     ValueType GetValue() const;
 
@@ -81,7 +81,7 @@ public:
 
 
     mapped_type& operator[](const key_type& key);
-
+    
 private:
     ValueType value_;
 };
