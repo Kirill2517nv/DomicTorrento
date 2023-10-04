@@ -1,4 +1,5 @@
 #include "Values.hpp"
+#include <iostream>
 
 BenList::BenList() : BenValues()
 {
@@ -65,6 +66,19 @@ BenString::ValueType BenString::GetValue() const
 	return value_;
 }
 
+std::string BenString::GetStr() const
+{
+	if (this->IsStr())
+	{
+	return value_;
+	}
+	else
+	{
+		throw std::runtime_error("Wrong string");
+	}
+}
+
+
 BenDict::iterator BenDict::begin()
 {
 	return value_.begin();
@@ -124,4 +138,25 @@ BenInt::BenInt(ValueType& value) :
 BenInt::ValueType BenInt::GetValue() const
 {
 	return value_;
+}
+
+int BenInt::GetInt() const
+{
+	if (this->IsInt()) 
+	{
+		return value_;
+	}
+	else
+	{
+		throw std::runtime_error("invalid integer");
+	}
+}
+
+bool BenValues::operator==(const BenValues& other)
+{
+	if (this->IsStr() && other.IsStr())
+	{
+		return (this->GetStr() == other.GetStr());
+	}
+	return false;
 }

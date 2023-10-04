@@ -9,13 +9,21 @@
 
 class PrintPretty;
 
+
 class BenValues 
 {
 public:
 	BenValues() {}
 	virtual ~BenValues() = default;
 	virtual void accept(PrintPretty*) = 0;
-};
+    virtual bool IsInt() const { return false; }
+    virtual bool IsStr() const { return false; }
+    virtual bool IsLst() const { return false; }
+    virtual bool IsDct() const { return false; }
+    virtual int GetInt() const { return 0; }
+    virtual std::string GetStr() const { return ""; }
+    bool operator==(const BenValues& other);
+}; 
 
 class BenList : public BenValues
 {
@@ -33,6 +41,7 @@ public:
     const_iterator cbegin() const;
     const_iterator cend() const;
     virtual void accept(PrintPretty*) override;
+    virtual bool IsLst() const override { return true; }
     
 
 private:
@@ -48,9 +57,9 @@ public:
     ~BenString() {}
     BenString(ValueType&);
     virtual void accept(PrintPretty*) override;
-
+    virtual bool IsStr() const override { return true; }
     ValueType GetValue() const;
-
+    virtual std::string GetStr() const override;
 private:
     ValueType value_;
 };
@@ -71,7 +80,7 @@ public:
     const_iterator cend() const;
 
     virtual void accept(PrintPretty*) override;
-
+    virtual bool IsDct() const override { return true; }
     using key_type = ValueType::key_type;
 
     using mapped_type = ValueType::mapped_type;
@@ -92,9 +101,11 @@ class BenInt : public BenValues
 public:
     using ValueType = long long;
     virtual void accept(PrintPretty*) override;
+    virtual bool IsInt() const override { return true; }
     BenInt(ValueType&);
     ~BenInt() {}
     ValueType GetValue() const;
+    virtual int GetInt() const override;
 private:
     ValueType value_;
 };
