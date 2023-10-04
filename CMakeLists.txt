@@ -4,14 +4,6 @@ project (DominicTorrento)
 
 set(PROJECT_NAME main)
 
-set (BOOST_ROOT "A:/GitHub/DominicTorrento/external/boost_1_82_0") # Путь к библиотеке Boost
-  
-set (Boost_NO_SYSTEM_PATHS ON)
-set (Boost_USE_MULTITHREADED ON)
-set (Boost_USE_STATIC_LIBS ON)
-set (Boost_USE_STATIC_RUNTIME OFF)
-set (BOOST_ALL_DYN_LINK OFF)
-find_package (Boost REQUIRED COMPONENTS REQUIRED)
 
 set(INCLUDES
 	includes/BencodeReader.hpp
@@ -46,11 +38,6 @@ target_include_directories(BencodeReader PRIVATE src)
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES 
 	${ALL_SOURCES}
 )
-if (Boost_FOUND)
-	include_directories (SYSTEM ${Boost_INCLUDE_DIR}) # подключаем заголовочные файлы
-	add_executable(${PROJECT_NAME} ${SOURCE_EXE})
-    target_link_libraries (${PROJECT_NAME} ${Boost_LIBRARIES}) # подключаем библиотеку
-endif ()
 
 target_link_libraries(${PROJECT_NAME} BencodeReader)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
