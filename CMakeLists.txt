@@ -22,9 +22,14 @@ set(SOURCES
 	src/Values.cpp
 )
 
+set (TORRENT_FILES
+	torrent/sample2.torrent
+	)
+
 set(ALL_SOURCES
 	${INCLUDES}
 	${SOURCES}
+	${TORRENT_FILES}
 )
 
 add_library(BencodeReader STATIC
@@ -33,11 +38,14 @@ ${ALL_SOURCES}
 
 target_include_directories(BencodeReader PUBLIC includes)
 target_include_directories(BencodeReader PRIVATE src)
+target_include_directories(BencodeReader PRIVATE torrent)
 
  
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES 
 	${ALL_SOURCES}
 )
+
+add_executable(${PROJECT_NAME} ${SOURCE_EXE})
 
 target_link_libraries(${PROJECT_NAME} BencodeReader)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
