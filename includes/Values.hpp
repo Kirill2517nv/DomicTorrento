@@ -64,11 +64,17 @@ private:
     ValueType value_;
 };
 
+struct mycomp {
+    bool operator()(std::shared_ptr<BenString> l, std::shared_ptr<BenString> r) const {
+        return l->GetValue() < r->GetValue();
+    }
+};
 
 class BenDict : public BenValues
 {
     using ValueType = std::map<std::shared_ptr<BenString>,
-        std::shared_ptr<BenValues>>;
+        std::shared_ptr<BenValues>,
+        mycomp>;
 public:
     using iterator = ValueType::iterator;
     using const_iterator = ValueType::const_iterator;
@@ -86,6 +92,7 @@ public:
     using mapped_type = ValueType::mapped_type;
 
     BenDict();
+
     ~BenDict() {}
 
 
